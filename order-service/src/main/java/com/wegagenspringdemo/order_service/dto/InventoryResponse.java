@@ -1,4 +1,4 @@
-package com.wegagenspringdemo.inventory_service.dto;
+package com.wegagenspringdemo.order_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
