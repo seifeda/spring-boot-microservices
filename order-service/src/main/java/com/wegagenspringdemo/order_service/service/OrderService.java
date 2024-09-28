@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -44,11 +45,13 @@ public class OrderService {
         // stock
         InventoryResponse[] inventoryResponsesArray=webClient.get()
                 .uri("http://localhost:8082/api/inventory",
-                        uriBuilder -> uriBuilder.queryParam("skuCodes", skuCodes).build())
+                        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                         .retrieve()
                                 .bodyToMono(InventoryResponse[].class)
-                                        .block();
-       boolean allProductsInStock= Arrays.stream(inventoryResponsesArray).allMatch(InventoryResponse::isInStock);
+
+                .block();
+       boolean allProductsInStock = Arrays.stream(inventoryResponsesArray)
+               .allMatch(InventoryResponse::isInStock);
 
         if(allProductsInStock){
             orderRepository.save(order);
