@@ -19,6 +19,7 @@
         <module>inventory-service</module>
         <module>discovery-server</module>
         <module>api-gateway</module>
+        <module>security-service</module>
 
 
     </modules>
@@ -45,6 +46,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>
